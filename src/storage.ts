@@ -1,5 +1,5 @@
-import {Offer , Lead , ScoreLead} from "./types"
+import {Offer , Lead , ScoreLead} from "./types.js"
 
 export let currentOffer:Offer|null = null
 export let leads :Lead[]=[]
-export let scoredLead :ScoreLead[]=[]
+export let scoredLeads :ScoreLead[]=[]
