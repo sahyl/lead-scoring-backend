@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { Offer, Lead, ScoreLead } from "./types.js";
-import { currentOffer, leads, scoredLeads } from "./storage.js";
+import { storage } from "./storage.js";
 
 require("dotenv").config();
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
@@ -8,7 +8,7 @@ const genAI = new GoogleGenAI({ apiKey: GEMINI_API_KEY || "" });
 
 async function scoreLead(lead: Lead): Promise<ScoreLead> {
   try {
-    if (!currentOffer) throw new Error("No offer");
+    if (!storage.currentOffer) throw new Error("No offer");
     //rule layer
     let ruleScore = 0;
 
@@ -30,7 +30,7 @@ async function scoreLead(lead: Lead): Promise<ScoreLead> {
     //industry match
 
     const industryLower = lead.industry.toLowerCase();
-    const useCasesLower = currentOffer.idealUseCases.map((u) =>
+    const useCasesLower = storage.currentOffer.idealUseCases.map((u) =>
       u.toLowerCase()
     );
     if (useCasesLower.includes(industryLower)) {
@@ -50,9 +50,9 @@ async function scoreLead(lead: Lead): Promise<ScoreLead> {
 
     // AI layer
     const prompt = `
-    Offer:${currentOffer.name} - Value Props:${currentOffer.valueProps.join(
+    Offer:${storage.currentOffer.name} - Value Props:${storage.currentOffer.valueProps.join(
       ","
-    )} - Ideal Use Cases:${currentOffer.idealUseCases.join(
+    )} - Ideal Use Cases:${storage.currentOffer.idealUseCases.join(
       ","
     )} Prospect: Name:${lead.name}, Role: ${lead.role}, Company:${
       lead.company
@@ -98,8 +98,8 @@ async function scoreLead(lead: Lead): Promise<ScoreLead> {
 }
 
 export async function runScoring():Promise<void>{
-    if(!leads.length) throw new Error("No leads Uploaded")
-    scoredLeads.length = 0
-    const results = await Promise.all(leads.map(scoreLead))
-    scoredLeads.push(...results)
+    if(!storage.leads.length) throw new Error("No leads Uploaded")
+    storage.scoredLeads.length = 0
+    const results = await Promise.all(storage.leads.map(scoreLead))
+    storage.scoredLeads.push(...results)
 }

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Backend service for lead scoring using rule-based logic and AI integration with Google Gemini",
   "main": "dist/index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
