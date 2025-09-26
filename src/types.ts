@@ -1,7 +1,7 @@
 export interface Offer {
   name: string;
-  valueProps: string[];
-  idealUseCases: string[];
+  value_props: string[];
+  ideal_use_cases: string[];
 }
 
 export interface Lead {
@@ -10,7 +10,7 @@ export interface Lead {
   company: string;
   industry: string;
   location: string;
-  linkedinBio: string;
+  linkedin_bio: string;
 }
 
 export interface ScoreLead extends Lead {

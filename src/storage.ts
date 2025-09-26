@@ -1,4 +1,4 @@
-import {Offer , Lead , ScoreLead} from "./types.js"
+import {Offer , Lead , ScoreLead} from "./types"
 
 export const storage = {
   currentOffer: null as Offer | null,

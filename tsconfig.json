@@ -1,22 +1,27 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "node16",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",                  // ✅ Simplest, no .js extensions needed
+    "moduleResolution": "bundler",            // ✅ Classic Node resolution
+
     "outDir": "./dist",
     "rootDir": "./src",
-    "types":["node"],
-    "resolveJsonModule": true,
-    "moduleResolution": "node16", // Ensure Node.js module resolution
-    "typeRoots": ["./node_modules/@types", "./node_modules"] // Look for types in node_modules
+
+    "strict": true,
+    "esModuleInterop": true,               // Allows default imports like express
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    "types": ["node", "jest"],             // For Node and Jest typings
+    "resolveJsonModule": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "**/*.test.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }
